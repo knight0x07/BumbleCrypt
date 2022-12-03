@@ -31,7 +31,7 @@ While analyzing BumbleBee's crypter I realized that the decrypted DLL could be l
     
 Now if we take a look at the screenshot of the BumbleCrypt's loaded modules we can see it contains the "msimg32.dll" but the base address points to the Decrypted Malicious Payload.
 
-![s2](https://user-images.githubusercontent.com/60843949/205432516-84a91859-69b6-435b-b99c-ff47b10a9d16.png)
+![s2](https://user-images.githubusercontent.com/60843949/205432516-84a91859-69b6-435b-b99c-ff47b10a9d16.png =250x250)
 
 ![s3](https://user-images.githubusercontent.com/60843949/205432540-db15d8d5-d0e5-4731-ab3d-a649cf74f90c.png)
 
