@@ -30,9 +30,7 @@ While analyzing BumbleBee's crypter I realized that the decrypted DLL could be l
     - The LoadLibraryW then receives the NTSTATUS_SUCCESS as the response to NtMapViewOfSection and the base address of the memory mapped section where the decrypted malicious DLL lies in the memory.Further the LoadLibrary loads the DLL as per the return values, the outcome is that the msimg32.dll can be seen in the loaded modules but  points to the Decrypted payload. Further the Crypter transfers the control to the decrypted DLL by executing the exported function "CallPath".
     
 Now if we take a look at the screenshot of the BumbleCrypt's loaded modules we can see it contains the "msimg32.dll" but the base address points to the Decrypted Malicious Payload.
-<img src="https://user-images.githubusercontent.com/60843949/205432516-84a91859-69b6-435b-b99c-ff47b10a9d16.png" data-canonical-src="https://user-images.githubusercontent.com/60843949/205432516-84a91859-69b6-435b-b99c-ff47b10a9d16.png" width="200" height="400" />
 
---- 
 ![s2](https://user-images.githubusercontent.com/60843949/205432516-84a91859-69b6-435b-b99c-ff47b10a9d16.png =250x250)
 
 ![s3](https://user-images.githubusercontent.com/60843949/205432540-db15d8d5-d0e5-4731-ab3d-a649cf74f90c.png)
@@ -44,7 +42,7 @@ Now if we take a look at the screenshot of the BumbleCrypt's loaded modules we c
 
 Thankyou! Hope you liked it :D Do share
 
-My Twitter: https://twitter.com/knight0x07
+Twitter: https://twitter.com/knight0x07
 
 
 # Note 
