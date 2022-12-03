@@ -16,10 +16,10 @@ While analyzing BumbleBee's crypter I realized that the decrypted DLL could be l
 As a result "BumbleCrypt" was developed.
 
 **The BumbleCrypt**:
-1. The BumbleCrypt first loads an encrypted resource from the .rsrc section and then decrypts the final DLL payload: encrypted res -> Base64 decode -> Rc4 Decrypt -> xor decrypt
+1.The BumbleCrypt first loads an encrypted resource from the .rsrc section and then decrypts the final DLL payload: encrypted res -> Base64 decode -> Rc4 Decrypt -> xor decrypt
 2. The Crypter leverages the Heap to store the decrypted DLL payload just like the Bumblebee's crypter
 3. Once the final payload is decrypted, the BumbleCrypt hooks the NtApi "NtMapViewOfSection" which maps is used to map a view of the section into the virtual address space.
-4. Then the BumbleCrypt calls the LoadLibraryW("msimg32.dll"). Now let's understand how the inline hook is been triggered:
+- Then the BumbleCrypt calls the LoadLibraryW("msimg32.dll"). Now let's understand how the inline hook is been triggered:
 
     - The LoadLibraryW() first calls NtOpenFile to retrieve the handle of the module passed as an argument
     - Then it creates a section object with the module's handle using NtCreateSection
