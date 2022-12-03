@@ -1,6 +1,6 @@
 1. Paste the encrypted DLL in the Res -> embed.bin (Check out embed.bin)
 2. Add the source files in your project 
 3. Compile MinHook and include the header and library (.lib) file
-4. Once all the dependencies are met - build it for x64 architecture :)
+4. Once all the dependencies are met - build -> x64 =)
 
 Thanks! If not working let me know. Ciao
