@@ -16,19 +16,19 @@ While analyzing BumbleBee's crypter I realized that the decrypted DLL could be l
 As a result "BumbleCrypt" was developed.
 
 **The BumbleCrypt**:
-1.The BumbleCrypt first loads an encrypted resource from the .rsrc section and then decrypts the final DLL payload: encrypted res -> Base64 decode -> Rc4 Decrypt -> xor decrypt
-2. The Crypter leverages the Heap to store the decrypted DLL payload just like the Bumblebee's crypter
-3. Once the final payload is decrypted, the BumbleCrypt hooks the NtApi "NtMapViewOfSection" which maps is used to map a view of the section into the virtual address space.
+- The BumbleCrypt first loads an encrypted resource from the .rsrc section and then decrypts the final DLL payload: encrypted res -> Base64 decode -> Rc4 Decrypt -> xor decrypt
+- The Crypter leverages the Heap to store the decrypted DLL payload just like the Bumblebee's crypter
+- Once the final payload is decrypted, the BumbleCrypt hooks the NtApi "NtMapViewOfSection" which maps is used to map a view of the section into the virtual address space.
 - Then the BumbleCrypt calls the LoadLibraryW("msimg32.dll"). Now let's understand how the inline hook is been triggered:
 
     - The LoadLibraryW() first calls NtOpenFile to retrieve the handle of the module passed as an argument
     - Then it creates a section object with the module's handle using NtCreateSection
-- Now once the section is been created, the LoadLibrary calls the NtMapViewOfSection in order to maps the view of a section the memory
-- **Here** our hook on NtMapViewOfSection is been triggered where the proxy function performs the following actions:
-                            - First unhooks the NtMapViewOfSection
-                            - Creates a section of the required size using NtCreateSection()
-                            - Then maps the view of the created section into the virtual address space using NtMapViewOfSection (unhooked earlier)
-                            - At last it manually maps the previously decrypted final DLL at the base address of the memory mapped section and then returns NTSTATUS_SUCCESS to the LoadLibraryW and exits from the proxy function 
+    - Now once the section is been created, the LoadLibrary calls the NtMapViewOfSection in order to maps the view of a section the memory
+    - **Here** our hook on NtMapViewOfSection is been triggered where the proxy function performs the following actions:
+        - First unhooks the NtMapViewOfSection
+        - Creates a section of the required size using NtCreateSection()
+Then maps the view of the created section into the virtual address space using NtMapViewOfSection (unhooked earlier)
+At last it manually maps the previously decrypted final DLL at the base address of the memory mapped section and then returns NTSTATUS_SUCCESS to the LoadLibraryW and exits from the proxy function 
     - The LoadLibraryW then receives the NTSTATUS_SUCCESS as the response to NtMapViewOfSection and the base address of the memory mapped section where the decrypted malicious DLL lies in the memory.Further the LoadLibrary loads the DLL as per the return values, the outcome is that the msimg32.dll can be seen in the loaded modules but  points to the Decrypted payload. Further the Crypter transfers the control to the decrypted DLL by executing the exported function "CallPath".
     
 Now if we take a look at the screenshot of the BumbleCrypt's loaded modules we can see it contains the "msimg32.dll" but the base address points to the Decrypted Malicious Payload.
