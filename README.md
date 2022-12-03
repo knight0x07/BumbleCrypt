@@ -39,7 +39,7 @@ As a result "BumbleCrypt" was developed.
 
 ![s3](https://user-images.githubusercontent.com/60843949/205432540-db15d8d5-d0e5-4731-ab3d-a649cf74f90c.png)
 
-## PoC
+## PoC - BumbleCrypter
 
 ![s1](https://user-images.githubusercontent.com/60843949/205432713-6d8700a9-9a76-4827-8f5f-b9b699af9e10.png)
 
