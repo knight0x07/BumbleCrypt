@@ -19,10 +19,11 @@ While analyzing BumbleBee's crypter I realized that the decrypted DLL could be l
 - The Crypter leverages the Heap to store the decrypted DLL payload just like the Bumblebee's crypter
 - Once the final payload is decrypted, the BumbleCrypt hooks the NtApi "NtMapViewOfSection" which maps is used to map a view of the section into the virtual address space.
 - Then the BumbleCrypt calls the LoadLibraryW("msimg32.dll"). Now let's understand how the inline hook is been triggered:
-            - The LoadLibraryW() first calls NtOpenFile to retrieve the handle of the module passed as an argument
-            - Then it creates a section object with the module's handle using NtCreateSection
-            - Now once the section is been created, the LoadLibrary calls the NtMapViewOfSection in order to maps the view of a section the memory
-            - **Here** our hook on NtMapViewOfSection is been triggered where the proxy function performs the following actions:
+
+* The LoadLibraryW() first calls NtOpenFile to retrieve the handle of the module passed as an argument
+- Then it creates a section object with the module's handle using NtCreateSection
+- Now once the section is been created, the LoadLibrary calls the NtMapViewOfSection in order to maps the view of a section the memory
+- **Here** our hook on NtMapViewOfSection is been triggered where the proxy function performs the following actions:
                             - First unhooks the NtMapViewOfSection
                             - Creates a section of the required size using NtCreateSection()
                             - Then maps the view of the created section into the virtual address space using NtMapViewOfSection (unhooked earlier)
