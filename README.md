@@ -45,7 +45,7 @@ As a result "BumbleCrypt" was developed.
 
 
 Thankyou so much! Hope you liked it =D
-
+You can contact me on Twitter if you have any feedbacks or comments.
 Twitter: https://twitter.com/knight0x07
 
 
