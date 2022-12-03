@@ -4,7 +4,7 @@ A Bumblebee-inspired Crypter
 ## Background
 
 The BumbleCrypt is inspired by Bumblebee's crypter, in Bumblebee's case the main Bumblebee DLL is been loaded in the memory and executed in the following way:
-    1. Decrypts and writes the payload in the Heap
+- Decrypts and writes the payload in the Heap
     2. Hooks three NtApi's - NtOpenFile, NtCreateSection and NtMapViewOfSection
     - Calls LoadLibraryW("gdiplus.dll") which triggers the inline hooks as the above three API's are been used by LoadLibrary() to load any library.
     - The inline hooks and LoadLibrary itself then loads the main Bumblebee DLL in place of "gdiplus.dll"
